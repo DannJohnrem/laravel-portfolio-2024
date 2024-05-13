@@ -1,6 +1,6 @@
 <template>
     <!-- Footer container -->
-    <footer class="text-center bg-zinc-50 text-surface/75 dark:bg-neutral-700 dark:text-white/75 lg:text-left">
+    <footer class="text-sm text-center text-gray-300 text-surface/75 dark:bg-gray-800 dark:text-gray-300 lg:text-left">
         <div
             class="flex items-center justify-center p-6 border-b-2 border-neutral-200 dark:border-white/10 lg:justify-between">
             <div class="hidden me-12 lg:block">
@@ -162,8 +162,8 @@
 
         <!--Copyright section-->
         <div class="p-6 text-center bg-black/5">
-            <span>© 2023 Copyright:</span>
-            <a class="font-semibold" href="https://tw-elements.com/">TW Elements</a>
+            <span>© 2024 Copyright:</span>
+            <a class="font-semibold" href="https://tw-elements.com/">Dann Johnrem</a>
         </div>
     </footer>
 </template>
