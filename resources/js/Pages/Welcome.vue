@@ -4,18 +4,16 @@ import Footer from '@/Components/Footer.vue';
 import Navbar from '@/Components/Navbar.vue';
 
 defineProps({
-    canLogin: {
-        type: Boolean,
-    },
-    canRegister: {
-        type: Boolean,
-    }
+    canLogin: Boolean,
+    canRegister: Boolean,
+    auth: Object
 });
+
 </script>
 
 <template>
-    <Head title="Welcome" />
-    <Navbar></Navbar>
+    <Head title="DannPortfolio" />
+    <Navbar :canLogin="canLogin" :canRegister="canRegister"></Navbar>
     <div class="relative min-h-screen bg-gray-100 bg-center sm:flex sm:justify-center sm:items-center bg-dots-darker dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
 
     </div>
