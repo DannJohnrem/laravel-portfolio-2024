@@ -110,7 +110,7 @@ services:
         networks:
             - sail
         ports:
-            - 8001:80
+            - '8001:80'
 networks:
     sail:
         driver: bridge
