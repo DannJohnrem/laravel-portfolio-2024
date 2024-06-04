@@ -4,10 +4,11 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { Link, usePage } from '@inertiajs/vue3';
 
 const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
+    { name: 'Home', href: '#', current: true },
+    { name: 'About', href: '#', current: false },
+    { name: 'Services', href: '#', current: false },
+    { name: 'Portfolio', href: '#', current: false },
+    { name: 'Contact', href: '#', current: false },
 ];
 
 defineProps({
@@ -39,9 +40,8 @@ const isAuthenticated = page.props.auth.user !== null;
                     <div class="hidden md:block">
                         <nav aria-label="Global">
                             <ul class="flex items-center gap-6 text-sm">
-                                <li>
-                                    <a v-for="item in navigation" :key="item.name" :href="item.href"
-                                        :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white transition', 'rounded-md px-3 py-2 text-sm font-medium']"
+                                <li v-for="item in navigation" :key="item.name" :href="item.href">
+                                    <a :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white transition', 'rounded-md px-3 py-2 text-sm font-medium']"
                                         :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
                                 </li>
                             </ul>

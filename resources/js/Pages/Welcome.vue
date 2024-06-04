@@ -25,7 +25,7 @@ defineProps({
                 </div>
 
                 <div class="lg:py-24">
-                    <h2 class="text-3xl font-bold sm:text-4xl dark:text-white">Grow your audience</h2>
+                    <h2 class="text-3xl font-bold sm:text-4xl dark:text-white">Hi, I'm Dann Johnrem</h2>
 
                     <p class="mt-4 text-gray-600 dark:text-gray-300">
                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut qui hic atque tenetur quis
