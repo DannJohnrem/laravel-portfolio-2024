@@ -25,7 +25,7 @@ const isAuthenticated = page.props.auth.user !== null;
 </script>
 
 <template>
-    <Disclosure as="nav" class="bg-gray-800" v-slot="{ open }">
+    <Disclosure as="nav" class="sticky top-0 z-50 bg-gray-800" v-slot="{ open }">
         <header>
             <div class="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16">
@@ -41,7 +41,7 @@ const isAuthenticated = page.props.auth.user !== null;
                         <nav aria-label="Global">
                             <ul class="flex items-center gap-6 text-sm">
                                 <li v-for="item in navigation" :key="item.name" :href="item.href">
-                                    <a :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white transition', 'rounded-md px-3 py-2 text-sm font-medium']"
+                                    <a :class="[item.current ? 'bg-gray-900 text-white hover:bg-gray-950 cursor-pointer' : 'text-gray-300 cursor-pointer hover:bg-gray-700 hover:text-white transition', 'rounded-md px-3 py-2 text-sm font-medium']"
                                         :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
                                 </li>
                             </ul>
@@ -51,7 +51,7 @@ const isAuthenticated = page.props.auth.user !== null;
                     <div class="flex items-center gap-4">
                         <div class="sm:flex sm:gap-4">
                             <Link :href="route('login')"
-                                class="rounded-md bg-gray-900 px-5 py-2.5 text-sm font-medium text-white shadow">
+                                class="rounded-md bg-gray-900 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-gray-950">
                             Login
                             </Link>
 
