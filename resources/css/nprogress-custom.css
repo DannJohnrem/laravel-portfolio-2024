@@ -1,0 +1,15 @@
+/* resources/css/nprogress-custom.css */
+
+/* Ensure high specificity */
+body #nprogress .bar {
+    background: #29d !important; /* Use !important to override default styles */
+  }
+
+  body #nprogress .spinner-icon {
+    border-top-color: #29d !important;
+    border-left-color: #29d !important;
+  }
+
+  body #nprogress .peg {
+    box-shadow: 0 0 10px #29d, 0 0 5px #29d !important;
+  }
