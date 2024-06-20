@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64e0cf8d739b2090ac67e0d3b35b4f95",
+    "content-hash": "f820fd993a0ec3960fc555494b620cd5",
     "packages": [
         {
             "name": "brick/math",
@@ -1116,6 +1116,68 @@
                 }
             ],
             "time": "2023-10-27T10:59:02+00:00"
+        },
+        {
+            "name": "laravel/breeze",
+            "version": "v1.29.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/breeze.git",
+                "reference": "22c53b84b7fff91b01a318d71a10dfc251e92849"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/breeze/zipball/22c53b84b7fff91b01a318d71a10dfc251e92849",
+                "reference": "22c53b84b7fff91b01a318d71a10dfc251e92849",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^10.17",
+                "illuminate/filesystem": "^10.17",
+                "illuminate/support": "^10.17",
+                "illuminate/validation": "^10.17",
+                "php": "^8.1.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^8.0",
+                "phpstan/phpstan": "^1.10"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Breeze\\BreezeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Breeze\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Minimal Laravel authentication scaffolding with Blade and Tailwind.",
+            "keywords": [
+                "auth",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/breeze/issues",
+                "source": "https://github.com/laravel/breeze"
+            },
+            "time": "2024-03-04T14:35:21+00:00"
         },
         {
             "name": "laravel/framework",
@@ -5490,16 +5552,16 @@
         },
         {
             "name": "tightenco/ziggy",
-            "version": "v2.1.0",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/ziggy.git",
-                "reference": "f2ce6091078109f434e295a17adfac7378257ace"
+                "reference": "c0ee79a5bb92077e4b72d1d732c823ccba7f6a15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/ziggy/zipball/f2ce6091078109f434e295a17adfac7378257ace",
-                "reference": "f2ce6091078109f434e295a17adfac7378257ace",
+                "url": "https://api.github.com/repos/tighten/ziggy/zipball/c0ee79a5bb92077e4b72d1d732c823ccba7f6a15",
+                "reference": "c0ee79a5bb92077e4b72d1d732c823ccba7f6a15",
                 "shasum": ""
             },
             "require": {
@@ -5508,6 +5570,7 @@
                 "php": ">=8.1"
             },
             "require-dev": {
+                "laravel/folio": "^1.1",
                 "orchestra/testbench": "^7.0 || ^8.0 || ^9.0",
                 "phpunit/phpunit": "^9.5 || ^10.3"
             },
@@ -5552,9 +5615,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tighten/ziggy/issues",
-                "source": "https://github.com/tighten/ziggy/tree/v2.1.0"
+                "source": "https://github.com/tighten/ziggy/tree/v2.2.1"
             },
-            "time": "2024-03-26T16:04:23+00:00"
+            "time": "2024-05-16T23:31:31+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -6274,68 +6337,6 @@
             "time": "2024-03-08T09:58:59+00:00"
         },
         {
-            "name": "laravel/breeze",
-            "version": "v1.29.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/breeze.git",
-                "reference": "22c53b84b7fff91b01a318d71a10dfc251e92849"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/breeze/zipball/22c53b84b7fff91b01a318d71a10dfc251e92849",
-                "reference": "22c53b84b7fff91b01a318d71a10dfc251e92849",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/console": "^10.17",
-                "illuminate/filesystem": "^10.17",
-                "illuminate/support": "^10.17",
-                "illuminate/validation": "^10.17",
-                "php": "^8.1.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^8.0",
-                "phpstan/phpstan": "^1.10"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Laravel\\Breeze\\BreezeServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\Breeze\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "Minimal Laravel authentication scaffolding with Blade and Tailwind.",
-            "keywords": [
-                "auth",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/laravel/breeze/issues",
-                "source": "https://github.com/laravel/breeze"
-            },
-            "time": "2024-03-04T14:35:21+00:00"
-        },
-        {
             "name": "laravel/pint",
             "version": "v1.15.2",
             "source": {
@@ -6463,6 +6464,50 @@
                 "source": "https://github.com/laravel/sail"
             },
             "time": "2024-03-20T20:09:31+00:00"
+        },
+        {
+            "name": "laraveldaily/larastarters",
+            "version": "2.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LaravelDaily/Larastarters.git",
+                "reference": "291758a4feebcb32cca62fe003166d84e2bd6134"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LaravelDaily/Larastarters/zipball/291758a4feebcb32cca62fe003166d84e2bd6134",
+                "reference": "291758a4feebcb32cca62fe003166d84e2bd6134",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LaravelDaily\\Larastarters\\LarastartersServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LaravelDaily\\Larastarters\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Povilas Korop",
+                    "email": "povilas@laraveldaily.com"
+                }
+            ],
+            "description": "Laravel Starter Kits with extra functions",
+            "support": {
+                "issues": "https://github.com/LaravelDaily/Larastarters/issues",
+                "source": "https://github.com/LaravelDaily/Larastarters/tree/2.3.3"
+            },
+            "time": "2024-02-19T13:00:57+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -6704,16 +6749,16 @@
         },
         {
             "name": "pestphp/pest",
-            "version": "v2.34.7",
+            "version": "v2.34.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest.git",
-                "reference": "a7a3e4240e341d0fee1c54814ce18adc26ce5a76"
+                "reference": "e8f122bf47585c06431e0056189ec6bfd6f41f57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest/zipball/a7a3e4240e341d0fee1c54814ce18adc26ce5a76",
-                "reference": "a7a3e4240e341d0fee1c54814ce18adc26ce5a76",
+                "url": "https://api.github.com/repos/pestphp/pest/zipball/e8f122bf47585c06431e0056189ec6bfd6f41f57",
+                "reference": "e8f122bf47585c06431e0056189ec6bfd6f41f57",
                 "shasum": ""
             },
             "require": {
@@ -6732,8 +6777,8 @@
             },
             "require-dev": {
                 "pestphp/pest-dev-tools": "^2.16.0",
-                "pestphp/pest-plugin-type-coverage": "^2.8.1",
-                "symfony/process": "^6.4.0|^7.0.4"
+                "pestphp/pest-plugin-type-coverage": "^2.8.3",
+                "symfony/process": "^6.4.0|^7.1.1"
             },
             "bin": [
                 "bin/pest"
@@ -6796,7 +6841,7 @@
             ],
             "support": {
                 "issues": "https://github.com/pestphp/pest/issues",
-                "source": "https://github.com/pestphp/pest/tree/v2.34.7"
+                "source": "https://github.com/pestphp/pest/tree/v2.34.8"
             },
             "funding": [
                 {
@@ -6808,7 +6853,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-05T07:44:17+00:00"
+            "time": "2024-06-10T22:02:16+00:00"
         },
         {
             "name": "pestphp/pest-plugin",

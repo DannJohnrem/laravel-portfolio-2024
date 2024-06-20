@@ -1,8 +1,8 @@
 <template>
     <!-- Footer container -->
-    <footer class="text-sm text-center text-gray-300 text-surface/75 dark:bg-gray-800 dark:text-gray-300 lg:text-left">
+    <footer class="text-sm text-center text-gray-300 text-surface/75 lg:text-left">
         <div
-            class="flex items-center justify-center p-6 border-b-2 border-neutral-200 dark:border-white/10 lg:justify-between">
+            class="flex items-center justify-center p-6 border-b-2 border-neutral-200 lg:justify-between">
             <div class="hidden me-12 lg:block">
                 <span>Get connected with us on social networks:</span>
             </div>
