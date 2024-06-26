@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('logo')->nullable();
+            $table->enum('level', ['Beginner', 'Intermediate', 'Expert']);
+            $table->string('category')->nullable();
             $table->timestamps();
         });
     }

@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Skill extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'logo',
+        'level',
+        'category',
+    ];
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }
