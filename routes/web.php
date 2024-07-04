@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PermissionController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -7,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SystemAdministration\AdminController;
 
 /*
@@ -29,28 +31,41 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Authenticated Routes Group
+Route::middleware(['auth', 'verified'])->group(function () {
 
-Route::middleware('auth')->group(function () {
+    // Dashboard Route
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    // About Page
     Route::get('/about', fn () => Inertia::render('About'))->name('about');
 
-    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    // Users Index
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
+    // Profile Routes
     Route::prefix('profile')->group(function () {
         Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
 
-    Route::resource('/skills', SkillController::class);
-    Route::resource('/projects', ProjectController::class);
+    // Resourceful Routes
+    Route::resource('skills', SkillController::class);
+    Route::resource('projects', ProjectController::class);
 
-    Route::prefix('system-administration')->middleware('role:Admin')->group( function() {
-        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+    // System Administration Routes with Admin Role Middleware
+    Route::middleware('role:Admin')->group( function () {
+
+        Route::controller(AdminController::class)->group( function() {
+            Route::get('/system-administration', 'index')->name('admin.index');
+        });
+
+        Route::resource('role', RoleController::class);
+        Route::resource('permission', PermissionController::class);
     });
-
 
 });
 
