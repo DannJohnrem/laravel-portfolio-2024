@@ -1,10 +1,13 @@
 <?php
 
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\SkillController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SystemAdministration\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +38,20 @@ Route::middleware('auth')->group(function () {
 
     Route::get('users', [UserController::class, 'index'])->name('users.index');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+
+    Route::resource('/skills', SkillController::class);
+    Route::resource('/projects', ProjectController::class);
+
+    Route::prefix('system-administration')->middleware('role:Admin')->group( function() {
+        Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+    });
+
+
 });
 
 require __DIR__.'/auth.php';

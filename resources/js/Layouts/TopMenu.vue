@@ -56,7 +56,7 @@
                 <template #trigger>
                     <button class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
                         aria-label="Account" aria-haspopup="true">
-                      fs
+                        {{ $page.props.auth.user.name }}
                     </button>
 
                 </template>
