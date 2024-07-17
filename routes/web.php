@@ -57,14 +57,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('projects', ProjectController::class);
 
     // System Administration Routes with Admin Role Middleware
-    Route::middleware('role:Admin')->group( function () {
+    Route::group(['middleware' => 'role:Admin', 'prefix' => 'admin'], function () {
 
         Route::controller(AdminController::class)->group( function() {
             Route::get('/system-administration', 'index')->name('admin.index');
         });
 
-        Route::resource('role', RoleController::class);
-        Route::resource('permission', PermissionController::class);
+        Route::resource('roles', RoleController::class);
+        Route::resource('permissions', PermissionController::class);
     });
 
 });
