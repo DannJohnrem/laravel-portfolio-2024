@@ -47,7 +47,7 @@
                     </table>
                 </div>
                 <div class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
-                    <pagination :links="users.links" />
+                    <pagination :links="users.links"/>
                 </div>
             </div>
         </div>

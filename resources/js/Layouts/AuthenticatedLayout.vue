@@ -9,11 +9,18 @@
 
                 <main class="h-full overflow-y-auto">
                     <div class="container grid px-6 mx-auto">
-                        <h2 class="my-6 text-2xl font-semibold text-gray-700">
-                            <slot name="header" />
-                        </h2>
+                        <div class="flex justify-between">
+                            <h2 class="my-6 text-2xl font-semibold text-gray-700">
+                                <slot name="header" />
+                            </h2>
+                            <div class="my-auto">
+                                <slot name="link"/>
+                            </div>
+
+                        </div>
 
                         <slot />
+
                     </div>
                 </main>
             </div>

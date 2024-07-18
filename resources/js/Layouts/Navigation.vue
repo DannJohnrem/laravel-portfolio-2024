@@ -2,7 +2,7 @@
     <aside class="z-20 flex-shrink-0 hidden w-64 overflow-y-auto bg-white md:block">
         <div class="py-4 text-gray-500">
             <Link class="ml-6 text-lg font-bold text-gray-800" :href="route('dashboard')">
-            Windmill
+            My Portfolio
             </Link>
 
             <ul class="mt-6">
