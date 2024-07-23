@@ -157,7 +157,7 @@
                                 </NavLink>
                             </li>
                             <li class="relative px-6 py-3">
-                                <NavLink :href="route('admin.index')" :active="isRouteActive(['admin.index'])">
+                                <NavLink :href="route('admin.index')" :active="isRouteActive(['admin.index', 'admin.create' , 'admin.edit'])">
                                     <template #icon>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-6">

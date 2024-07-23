@@ -61,6 +61,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::controller(AdminController::class)->group( function() {
             Route::get('/system-administration', 'index')->name('admin.index');
+            Route::get('/system-administration/create', 'create')->name('admin.create');
+            Route::post('/system-administration', 'store')->name('admin.store');
+            Route::get('/system-administration/{user}/edit', 'edit')->name('admin.edit');
+            Route::patch('/system-administration/{user}', 'update')->name('admin.update');
         });
 
         Route::resource('roles', RoleController::class);
