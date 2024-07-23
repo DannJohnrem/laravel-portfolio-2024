@@ -1,11 +1,11 @@
 <template>
 
-    <Head title="Update role" />
+    <Head title="Create new role" />
 
     <AuthenticatedLayout>
-        <template #header>Update role</template>
+        <template #header>Create new permission</template>
         <template #link>
-            <Link :href="route('roles.index')"
+            <Link :href="route('permissions.index')"
                 class="flex items-center justify-center gap-2 px-3 py-2 font-semibold text-white bg-indigo-500 rounded hover:bg-indigo-700">
                 <span>Go back</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -16,9 +16,9 @@
         </template>
         <div class="p-4 bg-white shadow-xs rounded-lh">
 
-            <form @submit.prevent="form.put(route('roles.update', role.id))">
+            <form @submit.prevent="form.post(route('permissions.store'))">
                 <div class="mt-4">
-                    <InputLabel for="name" value="Role name" />
+                    <InputLabel for="name" value="Permission name" />
                     <TextInput id="name" type="text" class="block w-full mt-1" v-model="form.name" required
                         autofocus autocomplete="name" />
                     <InputError class="mt-2" :message="form.errors.name" />
@@ -26,7 +26,7 @@
                 <div class="flex items-center justify-end mt-4">
                     <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing">
-                        Update
+                        Create
                     </PrimaryButton>
                 </div>
             </form>
@@ -42,20 +42,8 @@ import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import TextInput from "@/Components/TextInput.vue";
 
-
-const props = defineProps({
-
-    role: {
-        type: Object,
-        required: true
-    }
-
-});
-
 const form = useForm({
-
-    name: props.role.name
-
+    name: ''
 });
 
 </script>

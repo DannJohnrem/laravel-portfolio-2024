@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Admin\Role;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class CreateRoleRequest extends FormRequest
+class UpdateRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,12 @@ class CreateRoleRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:30', 'regex:/^[a-zA-Z]+$/',
-                Rule::unique('roles', 'name')
+                Rule::unique('roles', 'name')->ignore($this->role)
             ],
         ];
     }
 
-    /**
+     /**
      * Get the error messages for the defined validation rules.
      *
      * @return array

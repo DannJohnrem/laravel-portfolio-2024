@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
-use App\Http\Requests\Admin\CreateRoleRequest;
-use App\Http\Requests\Admin\UpdateRoleRequest;
 use App\Http\Resources\RolePermissionResource;
+use App\Http\Requests\Admin\Role\StoreRoleRequest;
+use App\Http\Requests\Admin\Role\UpdateRoleRequest;
 
 class RoleController extends Controller
 {
@@ -17,7 +17,7 @@ class RoleController extends Controller
     public function index()
     {
         return Inertia::render('Admin/Role/Index', [
-            'roles' => RolePermissionResource::collection(Role::all())
+            'roles' => RolePermissionResource::collection(Role::withoutTrashed()->get())
         ]);
     }
 
@@ -32,7 +32,7 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateRoleRequest $request)
+    public function store(StoreRoleRequest $request)
     {
         Role::create($request->validated());
 
@@ -52,14 +52,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        $roleId = $role->id;
-
-        // \dd($roleId);
-        $roleGetId = Role::findById($roleId);
-        // \dd($roleGetId);
-
         return Inertia::render('Admin/Role/Edit', [
-            'role' => new RolePermissionResource($roleGetId)
+            'role' => new RolePermissionResource($role)
         ]);
     }
 
@@ -68,11 +62,7 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
-        $roleId = $role->id;
-
-        $roleGetId = Role::findById($roleId);
-
-        $roleGetId->update($request->validated());
+        $role->update($request->validated());
 
         return to_route('roles.index');
     }
@@ -82,12 +72,8 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $roleId = $role->id;
+        $role->delete();
 
-        $roleGetId = Role::findById($roleId);
-
-        $roleGetId->delete();
-
-        return back();
+        return response()->json();
     }
 }

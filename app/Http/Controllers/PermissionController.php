@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
+use App\Models\Permission;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
+use function Termwind\render;
 use App\Http\Resources\RolePermissionResource;
+
+use App\Http\Requests\Admin\Permission\StorePermissionRequest;
+use App\Http\Requests\Admin\Permission\UpdatePermissionRequest;
 
 class PermissionController extends Controller
 {
@@ -15,7 +19,7 @@ class PermissionController extends Controller
     public function index()
     {
         return Inertia::render('Admin/Permission/Index', [
-            'permissions' => RolePermissionResource::collection(Permission::all())
+            'permissions' => RolePermissionResource::collection(Permission::withoutTrashed()->get())
         ]);
     }
 
@@ -24,15 +28,17 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Permission/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePermissionRequest $request)
     {
-        //
+        Permission::create($request->validated());
+
+        return redirect()->route('permissions.index');
     }
 
     /**
@@ -48,15 +54,19 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
-        //
+        return Inertia::render('Admin/Permission/Edit', [
+            'permission' => new RolePermissionResource($permission)
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Permission $permission)
+    public function update(UpdatePermissionRequest $request, Permission $permission)
     {
-        //
+        $permission->update($request->validated());
+
+        return to_route('permissions.index');
     }
 
     /**
@@ -64,6 +74,8 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission)
     {
-        //
+        $permission->delete();
+
+        return response()->json();
     }
 }

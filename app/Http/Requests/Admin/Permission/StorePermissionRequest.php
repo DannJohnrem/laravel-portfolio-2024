@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Admin\Permission;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRoleRequest extends FormRequest
+class StorePermissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,12 @@ class UpdateRoleRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:30', 'regex:/^[a-zA-Z]+$/',
-                Rule::unique('roles', 'name')->ignore($this->role)
+                Rule::unique('permissions', 'name')
             ],
         ];
     }
 
-     /**
+      /**
      * Get the error messages for the defined validation rules.
      *
      * @return array
@@ -37,10 +37,10 @@ class UpdateRoleRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.unique' => 'The role name has already been taken.',
-            'name.required' => 'The role name field is required.',
-            'name.string' => 'The role name must be string only.',
-            'name.regex' => 'The role name must contain only alphabetic characters.',
+            'name.unique' => 'The permission name has already been taken.',
+            'name.required' => 'The permission name field is required.',
+            'name.string' => 'The permission name must be string only.',
+            'name.regex' => 'The permission name must contain only alphabetic characters.',
         ];
     }
 }
