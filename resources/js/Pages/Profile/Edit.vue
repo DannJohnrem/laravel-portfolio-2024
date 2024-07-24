@@ -19,8 +19,8 @@ defineProps({
             Profile
         </template>
 
-        <div class="sm:px-6 md:px-0 lg:px-0 space-y-6">
-          <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+        <div class="space-y-6 sm:px-6 md:px-0 lg:px-0">
+          <div class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">
             <UpdateProfileInformationForm
                 :must-verify-email="mustVerifyEmail"
                 :status="status"
@@ -28,11 +28,11 @@ defineProps({
             />
           </div>
 
-          <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+          <div class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">
             <UpdatePasswordForm class="max-w-xl" />
           </div>
 
-          <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+          <div class="p-4 bg-white shadow sm:p-8 dark:bg-gray-800 sm:rounded-lg">
             <DeleteUserForm class="max-w-xl" />
           </div>
         </div>

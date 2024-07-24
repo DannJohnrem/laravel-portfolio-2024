@@ -1,5 +1,5 @@
 <template>
-    <header class="z-10 py-4 bg-white shadow-md">
+    <header class="z-10 py-4 bg-white shadow-md dark:bg-gray-800">
         <div class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 md:justify-end">
             <!-- Mobile hamburger -->
             <button @click="$page.props.showingMobileMenu = !$page.props.showingMobileMenu"
@@ -13,6 +13,10 @@
             </button>
 
             <Dropdown>
+                <!-- Dark Mode section -->
+                <template #toggleDark>
+                    <DarkToggle class="align-middle rounded-md focus:outline-none focus:shadow-outline-purple"></DarkToggle>
+                </template>
                 <!-- notification section -->
                 <template #notif>
                     <button class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple"
@@ -96,4 +100,6 @@
 <script setup>
 import Dropdown from '@/Components/Dropdown.vue'
 import DropdownLink from '@/Components/DropdownLink.vue'
+import DarkToggle from '@/Theme/Dark.vue'
+
 </script>

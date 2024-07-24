@@ -7,10 +7,10 @@
             <div class="flex flex-col flex-1 w-full">
                 <TopMenu />
 
-                <main class="h-full overflow-y-auto">
+                <main class="h-full overflow-y-auto dark:bg-gray-900">
                     <div class="container grid px-6 mx-auto">
                         <div class="flex justify-between">
-                            <h2 class="my-6 text-2xl font-semibold text-gray-700">
+                            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-300">
                                 <slot name="header" />
                             </h2>
                             <div class="my-auto">

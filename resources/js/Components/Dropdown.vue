@@ -2,6 +2,9 @@
     <div>
         <ul class="flex items-center flex-shrink-0 space-x-6">
             <li class="relative">
+                <slot name="toggleDark"/>
+            </li>
+            <li class="relative">
                 <div @click="toggleNotif">
                     <slot name="notif"/>
                 </div>

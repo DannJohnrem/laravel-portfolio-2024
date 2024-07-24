@@ -1,7 +1,7 @@
 <template>
-    <aside class="z-20 flex-shrink-0 hidden w-64 overflow-y-auto bg-white md:block">
+    <aside class="z-20 flex-shrink-0 hidden w-64 overflow-y-auto bg-white md:block dark:bg-gray-800">
         <div class="py-4 text-gray-500">
-            <Link class="ml-6 text-lg font-bold text-gray-800" :href="route('dashboard')">
+            <Link class="ml-6 text-lg font-bold text-gray-800 dark:text-slate-200" :href="route('dashboard')">
             My Portfolio
             </Link>
 
