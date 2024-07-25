@@ -15,20 +15,20 @@
 
             </Link>
         </template>
-        <div class="p-4 bg-white shadow-xs rounded-lh">
-            <div class="w-full mb-8 overflow-hidden border rounded-lg shadow-xs">
+        <div class="p-4 bg-white rounded shadow-sm dark:bg-gray-800">
+            <div class="w-full mb-8 overflow-hidden border rounded-lg shadow-sm dark:border-gray-600">
                 <div class="w-full overflow-x-auto">
                     <Table>
                         <template #header>
                             <TableRow
-                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b bg-gray-50">
+                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800 bg-gray-50">
                                 <TableHeaderCell>ID</TableHeaderCell>
                                 <TableHeaderCell>Name</TableHeaderCell>
                                 <TableHeaderCell>Action</TableHeaderCell>
                             </TableRow>
                         </template>
                         <template #default>
-                            <TableRow v-for="role in roles" :key="role.id" class="text-gray-700">
+                            <TableRow v-for="role in roles" :key="role.id" class="text-gray-700 dark:text-gray-400">
                                 <TableDataCell> {{ role.id }}</TableDataCell>
                                 <TableDataCell> {{ role.name }}</TableDataCell>
                                 <TableDataCell class="inline-flex gap-2 align-middle">

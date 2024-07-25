@@ -14,9 +14,9 @@
 
             </Link>
         </template>
-        <div class="p-4 bg-white shadow-xs rounded-lh">
+        <div class="p-4 bg-white rounded shadow-sm dark:bg-gray-800">
 
-            <form @submit.prevent="form.post(route('roles.store'))">
+            <form @submit.prevent="handleFormSubmitRoles">
                 <div class="mt-4">
                     <InputLabel for="name" value="Role name" />
                     <TextInput id="name" type="text" class="block w-full mt-1" v-model="form.name" required
@@ -42,9 +42,32 @@ import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import Checkbox from "@/Components/Checkbox.vue";
 import TextInput from "@/Components/TextInput.vue";
+import Swal from "sweetalert2";
 
 const form = useForm({
     name: ''
 });
+
+const handleFormSubmitRoles = () => {
+    form.post(route('roles.store'), {
+        onSuccess: () => {
+            Swal.fire({
+                title: 'Success!',
+                text: 'User role has been created successfully.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            })
+        },
+        onError: (errors) => {
+            Swal.fire({
+                title: 'Validation Error!',
+                text: 'Please check the input fields.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            console.error('Validation error:', errors);
+        }
+    });
+}
 
 </script>

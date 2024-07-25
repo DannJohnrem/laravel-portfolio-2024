@@ -23,7 +23,7 @@ class StorePermissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:30', 'regex:/^[a-zA-Z]+$/',
+            'name' => ['required', 'string', 'max:30', 'regex:/^[a-zA-Z_]+$/',
                 Rule::unique('permissions', 'name')
             ],
         ];
@@ -40,7 +40,7 @@ class StorePermissionRequest extends FormRequest
             'name.unique' => 'The permission name has already been taken.',
             'name.required' => 'The permission name field is required.',
             'name.string' => 'The permission name must be string only.',
-            'name.regex' => 'The permission name must contain only alphabetic characters.',
+            'name.regex' => 'The permission name may only contain letters and underscores.',
         ];
     }
 }

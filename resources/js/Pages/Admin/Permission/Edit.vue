@@ -14,7 +14,7 @@
 
             </Link>
         </template>
-        <div class="p-4 bg-white shadow-xs rounded-lh">
+        <div class="p-4 bg-white rounded shadow-sm dark:bg-gray-800">
 
             <form @submit.prevent="form.put(route('permissions.update', permission.id))">
                 <div class="mt-4">

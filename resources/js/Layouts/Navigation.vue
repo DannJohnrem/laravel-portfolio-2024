@@ -104,11 +104,11 @@
                         </ul>
                     </transition>
                 </li> -->
-
+                <!-- TODO: Ill make this a v-for -->
                 <!-- Dropdown with Child Menu -->
                 <li class="relative px-6 py-3" v-if="hasRole('Admin')">
                     <button @click="toggleTwoLevelMenu"
-                        class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800">
+                        class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                         <span class="inline-flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
@@ -128,11 +128,11 @@
                     </button>
                     <transition name="fade">
                         <ul v-show="showingTwoLevelMenu"
-                            class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
+                            class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner dark:text-gray-400 dark:bg-gray-900 bg-gray-50"
                             aria-label="submenu">
                             <li class="relative px-6 py-3">
                                 <NavLink :href="route('permissions.index')"
-                                    :active="isRouteActive(['permissions.index', 'permissions.create', 'permissions.edit'])">
+                                    :active="isRouteActive(['permissions.index', 'permissions.create', 'permissions.edit'])" aria-current="page">
                                     <template #icon>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -145,7 +145,7 @@
                             </li>
                             <li class="relative px-6 py-3">
                                 <NavLink :href="route('roles.index')"
-                                    :active="isRouteActive(['roles.index', 'roles.create', 'roles.edit'])">
+                                    :active="isRouteActive(['roles.index', 'roles.create', 'roles.edit'])" aria-current="page">
                                     <template #icon>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -157,7 +157,7 @@
                                 </NavLink>
                             </li>
                             <li class="relative px-6 py-3">
-                                <NavLink :href="route('admin.index')" :active="isRouteActive(['admin.index', 'admin.create' , 'admin.edit'])">
+                                <NavLink :href="route('admin.index')" :active="isRouteActive(['admin.index', 'admin.create' , 'admin.edit'])" aria-current="page">
                                     <template #icon>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -212,10 +212,10 @@ export default {
 
         const isRouteActive = (patterns) => {
             // Check if current route matches any of the patterns
-            const currentRouteName = isActive()
-
+            const currentRouteName = isActive();
             return patterns.some(pattern => {
                 // Check for exact match or if pattern includes wildcard for dynamic segments
+                console.log(currentRouteName === pattern);
                 return currentRouteName === pattern;
             });
         };

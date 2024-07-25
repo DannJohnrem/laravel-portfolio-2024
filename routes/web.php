@@ -65,6 +65,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/system-administration', 'store')->name('admin.store');
             Route::get('/system-administration/{user}/edit', 'edit')->name('admin.edit');
             Route::patch('/system-administration/{user}', 'update')->name('admin.update');
+            Route::delete('/system-administration/{user}', 'destroy')->name('admin.destroy');
         });
 
         Route::resource('roles', RoleController::class);

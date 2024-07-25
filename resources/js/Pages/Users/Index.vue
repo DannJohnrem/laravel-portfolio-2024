@@ -7,7 +7,7 @@
             Users
         </template>
 
-        <div class="p-4 bg-white rounded-lg shadow-xs">
+        <div class="p-4 bg-white rounded-lg shadow-sm">
             <div class="inline-flex w-full mb-4 overflow-hidden bg-white rounded-lg shadow-md">
                 <div class="flex items-center justify-center w-12 bg-blue-500">
                     <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="w-full mb-8 overflow-hidden border rounded-lg shadow-xs">
+            <div class="w-full mb-8 overflow-hidden border rounded-lg shadow-sm">
                 <div class="w-full overflow-x-auto">
                     <table class="w-full whitespace-no-wrap">
                         <thead>

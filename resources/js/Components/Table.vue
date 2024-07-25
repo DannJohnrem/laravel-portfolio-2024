@@ -3,7 +3,7 @@
         <thead>
             <slot name="header"/>
         </thead>
-        <tbody class="bg-white divide-y">
+        <tbody class="bg-white divide-y dark:divide-gray-600 dark:bg-gray-700">
             <slot/>
         </tbody>
     </table>

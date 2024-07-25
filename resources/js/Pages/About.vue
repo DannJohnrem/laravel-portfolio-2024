@@ -4,7 +4,9 @@
   <AuthenticatedLayout>
     <template #header> About us </template>
 
-    <div class="p-4 bg-white rounded-lg shadow-xs">Sample static text page</div>
+    <div class="p-4 bg-white rounded-lg shadow-sm dark:bg-gray-800 dark:text-gray-400">
+        Sample static text page
+    </div>
   </AuthenticatedLayout>
 </template>
 

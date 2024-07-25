@@ -6,7 +6,7 @@
       Dashboard
     </template>
 
-    <div class="p-4 bg-white rounded-lg shadow-xs">
+    <div class="p-4 bg-white rounded-lg shadow-sm dark:bg-gray-800 dark:text-gray-400">
       You're logged in!
     </div>
   </AuthenticatedLayout>

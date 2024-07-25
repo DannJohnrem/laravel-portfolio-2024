@@ -1,13 +1,5 @@
 export const twoLevelMenu = {
     roles: ['roles.index', 'roles.create', 'roles.edit'],
-    permissions: ['permissions.index'],
-    admin: ['admin.index']
+    permissions: ['permissions.index', 'permissions.create', 'permissions.edit'],
+    admin: ['admin.index', 'admin.create', 'admin.edit']
 };
-
-
-export const routes = [
-    'permissions.index',
-    'roles.index',
-    'admin.index',
-    // add other routes as needed
-  ];

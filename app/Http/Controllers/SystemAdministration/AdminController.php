@@ -10,13 +10,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Admin\User\StoreUserRequest;
+use App\Http\Requests\Admin\User\UpdateRequest;
+use Illuminate\Auth\Events\Validated;
 
 class AdminController extends Controller
 {
     public function index(): Response
     {
         return Inertia::render('Admin/system-administration/Index', [
-            'users' => UserResource::collection(User::all())
+            'users' => UserResource::collection(User::withoutTrashed()->get())
         ]);
     }
 
@@ -55,15 +57,28 @@ class AdminController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return Inertia::render('Admin/system-administration/Edit', [
+            'user' => new UserResource($user)
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(request $request, User $user)
+    public function update(UpdateRequest $request, User $user)
     {
-        //
+        $data = $request->validated();
+
+        // Only update the password if it's provided
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']); // Remove password from data if it's not provided
+        }
+
+        $user->update($data);
+
+        return to_route('admin.index');
     }
 
     /**
@@ -71,6 +86,8 @@ class AdminController extends Controller
      */
     public function destroy(User $user)
     {
-     //
+        $user->delete();
+
+        return response()->json();
     }
 }
