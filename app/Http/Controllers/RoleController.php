@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use Inertia\Inertia;
-use Illuminate\Http\Request;
-use App\Http\Resources\RolePermissionResource;
+use App\Models\Permission;
 use App\Http\Requests\Admin\Role\StoreRoleRequest;
 use App\Http\Requests\Admin\Role\UpdateRoleRequest;
+use App\Http\Resources\PermissionResource;
+use App\Http\Resources\RoleResource;
 
 class RoleController extends Controller
 {
@@ -17,7 +18,7 @@ class RoleController extends Controller
     public function index()
     {
         return Inertia::render('Admin/Role/Index', [
-            'roles' => RolePermissionResource::collection(Role::withoutTrashed()->get())
+            'roles' => RoleResource::collection(Role::withoutTrashed()->get())
         ]);
     }
 
@@ -52,8 +53,10 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        $role->load('permissions');
         return Inertia::render('Admin/Role/Edit', [
-            'role' => new RolePermissionResource($role)
+            'role' => new RoleResource($role),
+            'permissions' => PermissionResource::collection(Permission::all())
         ]);
     }
 
@@ -62,7 +65,13 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
-        $role->update($request->validated());
+        // $role->update($request->validated());
+
+        $role->update([
+            'name' => $request->name,
+        ]);
+
+        $role->syncPermissions($request->input('permissions.*.name'));
 
         return to_route('roles.index');
     }

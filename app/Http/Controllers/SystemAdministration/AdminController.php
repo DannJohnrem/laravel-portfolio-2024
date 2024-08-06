@@ -15,10 +15,10 @@ use Illuminate\Auth\Events\Validated;
 
 class AdminController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
         return Inertia::render('Admin/system-administration/Index', [
-            'users' => UserResource::collection(User::withoutTrashed()->get())
+            'users' => User::withoutTrashed()->paginate($request->input('per_page', 10))
         ]);
     }
 

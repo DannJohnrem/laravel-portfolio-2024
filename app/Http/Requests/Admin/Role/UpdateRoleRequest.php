@@ -26,6 +26,7 @@ class UpdateRoleRequest extends FormRequest
             'name' => ['required', 'string', 'max:30', 'regex:/^[a-zA-Z]+$/',
                 Rule::unique('roles', 'name')->ignore($this->role)
             ],
+            'permissions' => ['sometimes', 'array'],
         ];
     }
 

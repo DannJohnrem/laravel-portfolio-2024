@@ -23,7 +23,7 @@ class StorePermissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:30', 'regex:/^[a-zA-Z_]+$/',
+            'name' => ['required', 'string', 'max:30', 'regex:/^[a-zA-Z\s]+$/',
                 Rule::unique('permissions', 'name')
             ],
         ];

@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Permission;
-use Illuminate\Http\Request;
-use function Termwind\render;
-use App\Http\Resources\RolePermissionResource;
-
 use App\Http\Requests\Admin\Permission\StorePermissionRequest;
 use App\Http\Requests\Admin\Permission\UpdatePermissionRequest;
+use App\Http\Resources\PermissionResource;
 
 class PermissionController extends Controller
 {
@@ -19,7 +16,7 @@ class PermissionController extends Controller
     public function index()
     {
         return Inertia::render('Admin/Permission/Index', [
-            'permissions' => RolePermissionResource::collection(Permission::withoutTrashed()->get())
+            'permissions' => PermissionResource::collection(Permission::withoutTrashed()->get())
         ]);
     }
 
@@ -55,7 +52,7 @@ class PermissionController extends Controller
     public function edit(Permission $permission)
     {
         return Inertia::render('Admin/Permission/Edit', [
-            'permission' => new RolePermissionResource($permission)
+            'permission' => new PermissionResource($permission)
         ]);
     }
 

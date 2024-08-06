@@ -9,8 +9,8 @@
                 class="flex items-center justify-center gap-2 px-3 py-2 font-semibold text-white bg-indigo-500 rounded hover:bg-indigo-700">
             <span>New User</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
             </Link>
         </template>
@@ -28,7 +28,7 @@
                             </TableRow>
                         </template>
                         <template #default>
-                            <TableRow v-for="user in users" :key="user.id" class="text-gray-700 dark:text-gray-400">
+                            <TableRow v-for="user in users.data" :key="user.id" class="text-gray-700 dark:text-gray-400">
                                 <TableDataCell> {{ user.id }}</TableDataCell>
                                 <TableDataCell> {{ user.name }}</TableDataCell>
                                 <TableDataCell> {{ user.email }}</TableDataCell>
@@ -41,7 +41,8 @@
                                             d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                     </svg>
                                     </Link>
-                                    <button @click="confirmDeleteAdmin(user.id)" class="text-red-500 hover:text-red-700">
+                                    <button @click="confirmDeleteAdmin(user.id)"
+                                        class="text-red-500 hover:text-red-700">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -53,9 +54,11 @@
                         </template>
                     </Table>
                 </div>
-                <!-- <div class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
-                    <pagination :links="users.links" />
-                </div> -->
+                <div
+                    class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
+                    <Pagination :links="users.links" :current-page="users.current_page" :items-per-page="itemsPerPage"
+                        :total-items="users.total" @updateItemsPerPage="fetchData" />
+                </div>
             </div>
         </div>
     </AuthenticatedLayout>
@@ -63,20 +66,28 @@
 
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, router } from "@inertiajs/vue3";
 import Pagination from '@/Components/Pagination.vue';
 import Table from "@/Components/Table.vue";
 import TableDataCell from "@/Components/TableDataCell.vue";
 import TableHeaderCell from "@/Components/TableHeaderCell.vue";
 import TableRow from "@/Components/TableRow.vue";
 import Swal from 'sweetalert2';
+import { ref } from 'vue';
 
 defineProps({
     users: Object
 });
 
+const itemsPerPage = ref(10);
 
-const confirmDeleteAdmin = (roleId) => {
+const fetchData = (newItemsPerPage) => {
+    itemsPerPage.value = newItemsPerPage;
+    // Make an API call or use Inertia to get the data with the new items per page
+    router.get(route('admin.index'), { per_page: newItemsPerPage }, { preserveState: true, preserveScroll: true });
+};
+
+const confirmDeleteAdmin = (userId) => {
     Swal.fire({
         title: 'Are you sure?',
         text: 'This action cannot be undone.',
@@ -97,7 +108,7 @@ const confirmDeleteAdmin = (roleId) => {
                 );
                 return;
             }
-            fetch(route('admin.destroy', roleId), {
+            fetch(route('admin.destroy', userId), {
                 method: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': csrfTokenMetaTag,
@@ -111,7 +122,7 @@ const confirmDeleteAdmin = (roleId) => {
                         'success'
                     ).then(() => {
                         // Optionally, refresh the page or update the state
-                        router.reload({only: ['roles']});
+                        router.reload({ only: ['users'] });
                     });
                 } else {
                     Swal.fire(
