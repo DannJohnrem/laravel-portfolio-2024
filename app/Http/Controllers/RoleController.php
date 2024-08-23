@@ -9,16 +9,27 @@ use App\Http\Requests\Admin\Role\StoreRoleRequest;
 use App\Http\Requests\Admin\Role\UpdateRoleRequest;
 use App\Http\Resources\PermissionResource;
 use App\Http\Resources\RoleResource;
+use Illuminate\Http\Request;
+use App\Services\RoleService;
 
 class RoleController extends Controller
 {
+    protected $roleService;
+
+    // Inject the RoleService into the controller
+    public function __construct(RoleService $roleService)
+    {
+        $this->roleService = $roleService;
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         return Inertia::render('Admin/Role/Index', [
-            'roles' => RoleResource::collection(Role::withoutTrashed()->get())
+            'roles' => Role::withoutTrashed()->with('permissions')->latest()->paginate($request->input('per_page', 10))
         ]);
     }
 
@@ -27,7 +38,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Role/Create');
+        return Inertia::render('Admin/Role/Create', [
+            'permissions' => PermissionResource::collection(Permission::all())
+        ]);
     }
 
     /**
@@ -35,7 +48,12 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
-        Role::create($request->validated());
+        // $this->roleService->createRoleWithPermissions($request->validated());
+
+        $role = Role::create($request->validated());
+        if ($request->has('permissions')) {
+            $role->syncPermissions($request->input('permissions.*.name'));
+        }
 
         return to_route('roles.index');
     }
@@ -67,11 +85,13 @@ class RoleController extends Controller
     {
         // $role->update($request->validated());
 
-        $role->update([
-            'name' => $request->name,
-        ]);
+        // $role->update([
+        //     'name' => $request->name,
+        // ]);
 
-        $role->syncPermissions($request->input('permissions.*.name'));
+        $this->roleService->updateRoleWithPermissions($role, $request->validated());
+
+        // $role->syncPermissions($request->input('permissions.*.name'));
 
         return to_route('roles.index');
     }

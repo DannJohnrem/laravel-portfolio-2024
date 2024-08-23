@@ -7,16 +7,17 @@ use App\Models\Permission;
 use App\Http\Requests\Admin\Permission\StorePermissionRequest;
 use App\Http\Requests\Admin\Permission\UpdatePermissionRequest;
 use App\Http\Resources\PermissionResource;
+use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         return Inertia::render('Admin/Permission/Index', [
-            'permissions' => PermissionResource::collection(Permission::withoutTrashed()->get())
+            'permissions' => Permission::withoutTrashed()->paginate($request->input('per_page', 10))
         ]);
     }
 

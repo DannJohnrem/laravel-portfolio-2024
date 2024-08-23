@@ -98,45 +98,26 @@ const confirmDeleteAdmin = (userId) => {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            const csrfTokenMetaTag = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            if (!csrfTokenMetaTag) {
-                console.error('CSRF token meta tag not found');
-                Swal.fire(
-                    'Error!',
-                    'CSRF token not found. Please make sure it is included in the HTML.',
-                    'error'
-                );
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            if (!csrfToken) {
+                console.error('CSRF token not found.');
+                Swal.fire('Error!', 'CSRF token not found. Please check your meta tags.', 'error');
                 return;
             }
-            fetch(route('admin.destroy', userId), {
-                method: 'DELETE',
+
+            axios.delete(route('admin.destroy', userId), {
                 headers: {
-                    'X-CSRF-TOKEN': csrfTokenMetaTag,
-                    'Content-Type': 'application/json'
+                    'X-CSRF-TOKEN': csrfToken
                 }
-            }).then(response => {
-                if (response.ok) {
-                    Swal.fire(
-                        'Deleted!',
-                        'The user has been deleted.',
-                        'success'
-                    ).then(() => {
-                        // Optionally, refresh the page or update the state
-                        router.reload({ only: ['users'] });
-                    });
-                } else {
-                    Swal.fire(
-                        'Error!',
-                        'There was an issue deleting the role.',
-                        'error'
-                    );
-                }
-            }).catch(error => {
-                Swal.fire(
-                    'Error!',
-                    'There was an issue deleting the role.',
-                    'error'
-                );
+            })
+            .then(response => {
+                Swal.fire('Deleted!', 'The user has been deleted.', 'success');
+                router.reload({ preserveState: true, preserveScroll: true });
+            })
+            .catch(error => {
+                console.error('Error deleting user:', error);
+                Swal.fire('Error!', 'An error occurred while deleting the user.', 'error');
             });
         }
     });

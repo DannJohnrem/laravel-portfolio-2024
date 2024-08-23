@@ -28,7 +28,7 @@
                             </TableRow>
                         </template>
                         <template #default>
-                            <TableRow v-for="permission in permissions" :key="permission.id" class="text-gray-700 dark:text-gray-400">
+                            <TableRow v-for="permission in permissions.data" :key="permission.id" class="text-gray-700 dark:text-gray-400">
                                 <TableDataCell> {{ permission.id }}</TableDataCell>
                                 <TableDataCell> {{ permission.name }}</TableDataCell>
                                 <TableDataCell class="inline-flex gap-2 align-middle">
@@ -52,9 +52,11 @@
                         </template>
                     </Table>
                 </div>
-                <!-- <div class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
-                    <pagination :links="users.links" />
-                </div> -->
+                <div
+                class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
+                <Pagination :links="permissions.links" :current-page="permissions.current_page" :items-per-page="itemsPerPage"
+                    :total-items="permissions.total" @updateItemsPerPage="fetchData" />
+            </div>
             </div>
         </div>
     </AuthenticatedLayout>
@@ -64,15 +66,24 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link, router } from "@inertiajs/vue3";
 import Table from "@/Components/Table.vue";
+import Pagination from '@/Components/Pagination.vue';
 import TableDataCell from "@/Components/TableDataCell.vue";
 import TableHeaderCell from "@/Components/TableHeaderCell.vue";
 import TableRow from "@/Components/TableRow.vue";
 import Swal from 'sweetalert2';
+import { ref } from 'vue';
 
 defineProps({
     permissions: Object
 })
 
+const itemsPerPage = ref(10);
+
+const fetchData = (newItemsPerPage) => {
+    itemsPerPage.value = newItemsPerPage;
+    // Make an API call or use Inertia to get the data with the new items per page
+    router.get(route('roles.index'), { per_page: newItemsPerPage }, { preserveState: true, preserveScroll: true });
+};
 
 const confirmDelete = (permId) => {
     Swal.fire({

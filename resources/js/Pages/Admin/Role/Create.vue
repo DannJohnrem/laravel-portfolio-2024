@@ -23,6 +23,11 @@
                         autofocus autocomplete="name" />
                     <InputError class="mt-2" :message="form.errors.name" />
                 </div>
+                <div class="mt-4">
+                    <InputLabel for="name" value="Permission" />
+                    <VueMultiselect v-model="form.permissions" :options="permissions" :multiple="true" :taggable="true"
+                        placeholder="Select permission" />
+                </div>
                 <div class="flex items-center justify-end mt-4">
                     <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing">
@@ -42,10 +47,16 @@ import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import Checkbox from "@/Components/Checkbox.vue";
 import TextInput from "@/Components/TextInput.vue";
+import VueMultiselect from '@/Components/MultiSelect.vue'
 import Swal from "sweetalert2";
 
 const form = useForm({
-    name: ''
+    name: '',
+    permissions: [],
+});
+
+defineProps({
+    permissions: Array,
 });
 
 const handleFormSubmitRoles = () => {
@@ -71,3 +82,55 @@ const handleFormSubmitRoles = () => {
 }
 
 </script>
+
+<style lang="scss">
+.dark {
+    .multiselect__tags {
+        background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+        --tw-border-opacity: 1;
+        border-color: rgb(75 85 99 / var(--tw-border-opacity));
+
+        span {
+            --tw-text-opacity: 1;
+            color: rgb(209 213 219 / var(--tw-text-opacity));
+        }
+
+        .multiselect__input {
+            background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+            --tw-border-opacity: 1;
+            border-color: rgb(75 85 99 / var(--tw-border-opacity));
+
+            &::placeholder {
+                --tw-text-opacity: 1;
+                color: rgb(209 213 219 / var(--tw-text-opacity));
+            }
+        }
+    }
+
+    .multiselect__content-wrapper {
+        background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+        --tw-border-opacity: 1;
+        border-color: light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
+
+        .multiselect__content {
+            .multiselect__element {
+                .multiselect__option {
+                    --tw-border-opacity: 1;
+                    color: rgb(209 213 219 / var(--tw-bg-opacity));
+
+                    &.multiselect__option--selected {
+                        background: light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
+                        color: light-dark(rgb(255, 255, 255), rgb(16, 16, 16));
+
+                        &.multiselect__option--highlight {
+                            background: #ff6a6a;
+                            color: #fff;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}
+</style>

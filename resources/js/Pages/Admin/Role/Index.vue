@@ -24,13 +24,22 @@
                                 class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800 bg-gray-50">
                                 <TableHeaderCell>ID</TableHeaderCell>
                                 <TableHeaderCell>Name</TableHeaderCell>
+                                <TableHeaderCell>Permissions</TableHeaderCell>
                                 <TableHeaderCell>Action</TableHeaderCell>
                             </TableRow>
                         </template>
                         <template #default>
-                            <TableRow v-for="role in roles" :key="role.id" class="text-gray-700 dark:text-gray-400">
+                            <TableRow v-for="role in roles.data" :key="role.id" class="text-gray-700 dark:text-gray-400">
                                 <TableDataCell> {{ role.id }}</TableDataCell>
                                 <TableDataCell> {{ role.name }}</TableDataCell>
+                                <TableDataCell>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span v-for="permission in role.permissions" :key="permission.id"
+                                            :class="getPermissionClass(permission.name)">
+                                            {{ permission.name }}
+                                        </span>
+                                    </div>
+                                </TableDataCell>
                                 <TableDataCell class="inline-flex gap-2 align-middle">
                                     <Link :href="route('roles.edit', role.id)"
                                         class="text-green-500 hover:text-green-700">
@@ -52,9 +61,11 @@
                         </template>
                     </Table>
                 </div>
-                <!-- <div class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
-                    <pagination :links="users.links" />
-                </div> -->
+                <div
+                    class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
+                    <Pagination :links="roles.links" :current-page="roles.current_page" :items-per-page="itemsPerPage"
+                        :total-items="roles.total" @updateItemsPerPage="fetchData" />
+                </div>
             </div>
         </div>
     </AuthenticatedLayout>
@@ -65,15 +76,55 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link, router } from "@inertiajs/vue3";
 import Table from "@/Components/Table.vue";
+import Pagination from '@/Components/Pagination.vue';
 import TableDataCell from "@/Components/TableDataCell.vue";
 import TableHeaderCell from "@/Components/TableHeaderCell.vue";
 import TableRow from "@/Components/TableRow.vue";
 import Swal from 'sweetalert2';
+import { ref } from 'vue';
 
 defineProps({
-    roles: Object
+    roles: Array,
 });
 
+const itemsPerPage = ref(10);
+
+const fetchData = (newItemsPerPage) => {
+    itemsPerPage.value = newItemsPerPage;
+    // Make an API call or use Inertia to get the data with the new items per page
+    router.get(route('roles.index'), { per_page: newItemsPerPage }, { preserveState: true, preserveScroll: true });
+};
+
+/* START: getPermissionClass */
+// Define an array of permission types to check against (delete, create, edit, view).
+const permissionType = ['delete', 'create', 'edit', 'view'];
+
+ // Define a function to return a CSS class based on the permission name.
+const getPermissionClass = (permissionName) => {
+
+    const lowerCasedName = permissionName.toLowerCase();
+
+    for (const type of permissionType) {
+        if (lowerCasedName.includes(type)) {
+            switch (type) {
+                case 'delete':
+                    return 'bg-red-200 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300'
+                case 'create':
+                    return 'bg-green-200 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300'
+                case 'edit':
+                    return 'bg-yellow-200 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300'
+                case 'view':
+                    return 'bg-blue-200 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300'
+                default:
+                    return 'bg-gray-200 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-900 dark:text-gray-300'
+            }
+        }
+    }
+
+    // Default styling if no known type is found
+    return 'bg-gray-200 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-gray-900 dark:text-gray-300';
+}
+/* END: getPermissionClass */
 
 const confirmDelete = (roleId) => {
     Swal.fire({
@@ -110,7 +161,7 @@ const confirmDelete = (roleId) => {
                         'success'
                     ).then(() => {
                         // Optionally, refresh the page or update the state
-                        router.reload({only: ['roles']});
+                        router.reload({ only: ['roles'] });
                     });
                 } else {
                     Swal.fire(
