@@ -55,7 +55,7 @@
                     </Table>
                 </div>
                 <div
-                    class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t bg-gray-50 sm:grid-cols-9">
+                    class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:bg-gray-800 dark:border-gray-600 bg-gray-50 sm:grid-cols-9">
                     <Pagination :links="users.links" :current-page="users.current_page" :items-per-page="itemsPerPage"
                         :total-items="users.total" @updateItemsPerPage="fetchData" />
                 </div>
