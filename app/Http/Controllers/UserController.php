@@ -11,8 +11,13 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $perPage = $request->input('per_page', 10); // Default to 10 if not provided
-        return Inertia::render('Users/Index', [
-            'users' => User::paginate($perPage)
+
+        // Retrieve paginated users
+        $users = User::paginate($perPage);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $users
         ]);
     }
 }
