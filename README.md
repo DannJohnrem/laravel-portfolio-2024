@@ -30,8 +30,8 @@ Before you begin, ensure you have the following installed:
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/yourusername/your-portfolio.git
-    cd your-portfolio
+    git clone https://github.com/DannJohnrem/laravel-portfolio-2024.git
+    cd laravel-portfolio-2024
     ```
 
 2. **Install dependencies**:
@@ -50,18 +50,27 @@ Before you begin, ensure you have the following installed:
     ```bash
     docker-compose up -d
     ```
+    or
+   
+    ```bash
+    ./vendor/bin/sail up
+    ```
 
-5. **Run migrations and seeders**:
+6. **Run migrations and seeders**:
     ```bash
     docker-compose exec app php artisan migrate --seed
     ```
+    or
+    ```bash
+    sail artisan migrate --seed
+    ```
 
-6. **Compile the front-end assets**:
+8. **Compile the front-end assets**:
     ```bash
     npm run dev
     ```
 
-7. **Access the application**:
+9. **Access the application**:
     Open your browser and navigate to `http://localhost` to view your portfolio.
 
 ## Usage
