@@ -25,7 +25,7 @@
                     <InputError class="mt-2" :message="form.errors.name" />
                 </div>
                 <div class="mt-4">
-                    <InputLabel for="name" value="Permission" />
+                    <InputLabel for="permissions" value="Permission" />
                     <VueMultiselect v-model="form.permissions" :options="permissions" :multiple="true" :taggable="true"
                         placeholder="Select permission" />
                 </div>
@@ -46,8 +46,8 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import TextInput from "@/Components/TextInput.vue";
-import VueMultiselect from '@/Components/MultiSelect.vue'
-import { onMounted, ref } from 'vue'
+import VueMultiselect from '@/Components/MultiSelect.vue';
+import { onMounted } from 'vue';
 
 
 const props = defineProps({

@@ -32,7 +32,16 @@
                         autocomplete="username" />
                     <InputError class="mt-2" :message="form.errors.email" />
                 </div>
-
+                <div class="mt-4">
+                    <InputLabel for="roles" value="Roles" />
+                    <VueMultiselect v-model="form.roles" :options="roles" :multiple="true" :taggable="true"
+                        placeholder="Select permission" />
+                </div>
+                <div class="mt-4">
+                    <InputLabel for="permissions" value="Permission" />
+                    <VueMultiselect v-model="form.permissions" :options="permissions" :multiple="true" :taggable="true"
+                        placeholder="Select permission" />
+                </div>
                 <div class="mt-4">
                     <InputLabel for="password" value="Password" />
                     <TextInput id="password" type="password" class="block w-full mt-1" v-model="form.password"
@@ -65,11 +74,18 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import TextInput from "@/Components/TextInput.vue";
+import VueMultiselect from '@/Components/MultiSelect.vue'
 import Swal from 'sweetalert2';
 
+defineProps({
+    roles: Array,
+    permissions: Array
+})
 const form = useForm({
     name: '',
     email: '',
+    roles: [],
+    permissions: [],
     password: '',
     password_confirmation: '',
 });
@@ -99,3 +115,55 @@ const submit = () => {
 };
 
 </script>
+
+<style lang="scss">
+.dark {
+    .multiselect__tags {
+        background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+        --tw-border-opacity: 1;
+        border-color: rgb(75 85 99 / var(--tw-border-opacity));
+
+        span {
+            --tw-text-opacity: 1;
+            color: rgb(209 213 219 / var(--tw-text-opacity));
+        }
+
+        .multiselect__input {
+            background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+            --tw-border-opacity: 1;
+            border-color: rgb(75 85 99 / var(--tw-border-opacity));
+
+            &::placeholder {
+                --tw-text-opacity: 1;
+                color: rgb(209 213 219 / var(--tw-text-opacity));
+            }
+        }
+    }
+
+    .multiselect__content-wrapper {
+        background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+        --tw-border-opacity: 1;
+        border-color: light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
+
+        .multiselect__content {
+            .multiselect__element {
+                .multiselect__option {
+                    --tw-border-opacity: 1;
+                    color: rgb(209 213 219 / var(--tw-bg-opacity));
+
+                    &.multiselect__option--selected {
+                        background: light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
+                        color: light-dark(rgb(255, 255, 255), rgb(16, 16, 16));
+
+                        &.multiselect__option--highlight {
+                            background: #ff6a6a;
+                            color: #fff;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}
+</style>

@@ -31,7 +31,7 @@
                     </button>
                 </template>
                 <template #content-notif>
-                    <DropdownLink>
+                    <DropdownLink href="#">
                         <template #icon>
                             <span class="grow">Messages</span>
                             <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
@@ -39,7 +39,7 @@
                             </span>
                         </template>
                     </DropdownLink>
-                    <DropdownLink>
+                    <DropdownLink href="#">
                         <template #icon>
                             <span class="grow">Sales</span>
                             <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
@@ -47,7 +47,7 @@
                             </span>
                         </template>
                     </DropdownLink>
-                    <DropdownLink>
+                    <DropdownLink href="#">
                         <template #icon>
                             <span class="grow">Alerts</span>
                             <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">

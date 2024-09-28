@@ -23,7 +23,7 @@
                         autofocus autocomplete="name" />
                     <InputError class="mt-2" :message="form.errors.name" />
                 </div>
-                <div class="flex items-center justify-end mt-4">
+                <div class="flex items-end justify-end mt-4">
                     <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }"
                         :disabled="form.processing">
                         Create
@@ -48,25 +48,7 @@ const form = useForm({
 });
 
 const handleFormSubmitPermission = () => {
-    form.post(route('permissions.store'), {
-        onSuccess: () => {
-            Swal.fire({
-                title: 'Success!',
-                text: 'User permission has been created successfully.',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            })
-        },
-        onError: (errors) => {
-            Swal.fire({
-                title: 'Validation Error!',
-                text: 'Please check the input fields.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            console.error('Validation error:', errors);
-        }
-    });
+    form.post(route('permissions.store'));
 }
 
 </script>

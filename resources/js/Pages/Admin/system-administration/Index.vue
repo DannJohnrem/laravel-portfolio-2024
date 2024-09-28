@@ -28,7 +28,8 @@
                             </TableRow>
                         </template>
                         <template #default>
-                            <TableRow v-for="user in users.data" :key="user.id" class="text-gray-700 dark:text-gray-400">
+                            <TableRow v-for="user in users.data" :key="user.id"
+                                class="text-gray-700 dark:text-gray-400">
                                 <TableDataCell> {{ user.id }}</TableDataCell>
                                 <TableDataCell> {{ user.name }}</TableDataCell>
                                 <TableDataCell> {{ user.email }}</TableDataCell>
@@ -56,8 +57,9 @@
                 </div>
                 <div
                     class="px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:bg-gray-800 dark:border-gray-600 bg-gray-50 sm:grid-cols-9">
-                    <Pagination :links="users.links" :current-page="users.current_page" :items-per-page="itemsPerPage"
-                        :total-items="users.total" @updateItemsPerPage="fetchData" />
+                    <Pagination :links="pagination.links" :current-page="pagination.current_page"
+                        :items-per-page="itemsPerPage" :total-items="pagination.total"
+                        @updateItemsPerPage="fetchData" />
                 </div>
             </div>
         </div>
@@ -76,7 +78,8 @@ import Swal from 'sweetalert2';
 import { ref } from 'vue';
 
 defineProps({
-    users: Object
+    users: Object,
+    pagination: Object,
 });
 
 const itemsPerPage = ref(10);
@@ -111,14 +114,14 @@ const confirmDeleteAdmin = (userId) => {
                     'X-CSRF-TOKEN': csrfToken
                 }
             })
-            .then(response => {
-                Swal.fire('Deleted!', 'The user has been deleted.', 'success');
-                router.reload({ preserveState: true, preserveScroll: true });
-            })
-            .catch(error => {
-                console.error('Error deleting user:', error);
-                Swal.fire('Error!', 'An error occurred while deleting the user.', 'error');
-            });
+                .then(response => {
+                    Swal.fire('Deleted!', 'The user has been deleted.', 'success');
+                    router.reload({ preserveState: true, preserveScroll: true });
+                })
+                .catch(error => {
+                    console.error('Error deleting user:', error);
+                    Swal.fire('Error!', 'An error occurred while deleting the user.', 'error');
+                });
         }
     });
 };

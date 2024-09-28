@@ -84,7 +84,7 @@ import Swal from 'sweetalert2';
 import { ref } from 'vue';
 
 defineProps({
-    roles: Array,
+    roles: Object,
 });
 
 const itemsPerPage = ref(10);

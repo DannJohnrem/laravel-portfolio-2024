@@ -29,7 +29,7 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('Admin/Role/Index', [
-            'roles' => Role::withoutTrashed()->with('permissions')->latest()->paginate($request->input('per_page', 10))
+            'roles' => Role::withoutTrashed()->with('permissions')->latest()->paginate($request->input('per_page', 6))
         ]);
     }
 
@@ -48,12 +48,12 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
-        // $this->roleService->createRoleWithPermissions($request->validated());
+        $this->roleService->createRoleWithPermissions($request->validated());
 
-        $role = Role::create($request->validated());
-        if ($request->has('permissions')) {
-            $role->syncPermissions($request->input('permissions.*.name'));
-        }
+        // $role = Role::create($request->validated());
+        // if ($request->has('permissions')) {
+        //     $role->syncPermissions($request->input('permissions.*.name'));
+        // }
 
         return to_route('roles.index');
     }

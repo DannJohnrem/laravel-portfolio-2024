@@ -2,23 +2,33 @@
 
 namespace App\Http\Controllers\SystemAdministration;
 
+use App\Models\Role;
 use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\RoleResource;
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\Admin\User\StoreUserRequest;
-use App\Http\Requests\Admin\User\UpdateRequest;
 use Illuminate\Auth\Events\Validated;
+use App\Http\Requests\Admin\User\UpdateRequest;
+use App\Http\Requests\Admin\User\StoreUserRequest;
+use App\Http\Resources\PermissionResource;
+use App\Models\Permission;
 
 class AdminController extends Controller
 {
     public function index(Request $request): Response
     {
+        $users = User::with(['roles', 'permissions'])
+            ->withoutTrashed()
+            ->latest()
+            ->paginate($request->input('per_page', 6));
+
         return Inertia::render('Admin/system-administration/Index', [
-            'users' => User::withoutTrashed()->paginate($request->input('per_page', 10))
+            'users' => UserResource::collection($users),
+            'pagination' => $users->toArray(),
         ]);
     }
 
@@ -27,7 +37,10 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/system-administration/Create');
+        return Inertia::render('Admin/system-administration/Create', [
+            'roles' => RoleResource::collection(Role::all()),
+            'permissions' => PermissionResource::collection(Permission::all()),
+        ]);
     }
 
     /**
@@ -35,11 +48,14 @@ class AdminController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        $user->syncRoles($request->input('roles.*.name'));
+        $user->syncPermissions($request->input('permissions.*.name'));
 
         return to_route('admin.index');
     }
@@ -57,8 +73,11 @@ class AdminController extends Controller
      */
     public function edit(User $user)
     {
+        $user->load('permissions', 'roles');
         return Inertia::render('Admin/system-administration/Edit', [
-            'user' => new UserResource($user)
+            'user' => new UserResource($user),
+            'roles' => RoleResource::collection(Role::all()),
+            'permissions' => PermissionResource::collection(Permission::all()),
         ]);
     }
 
@@ -73,10 +92,12 @@ class AdminController extends Controller
         if (!empty($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         } else {
-            unset($data['password']); // Remove password from data if it's not provided
+            unset($data['password']);
         }
 
         $user->update($data);
+        $user->syncRoles($request->input('roles.*.name'));
+        $user->syncPermissions($request->input('permissions.*.name'));
 
         return to_route('admin.index');
     }

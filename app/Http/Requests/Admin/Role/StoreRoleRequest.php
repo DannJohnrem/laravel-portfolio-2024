@@ -26,10 +26,11 @@ class StoreRoleRequest extends FormRequest
             'name' => ['required', 'string', 'max:30', 'regex:/^[a-zA-Z]+$/',
                 Rule::unique('roles', 'name')
             ],
+            'permissions' => ['sometimes', 'array'],
         ];
     }
 
-     /**
+    /**
      * Get the error messages for the defined validation rules.
      *
      * @return array

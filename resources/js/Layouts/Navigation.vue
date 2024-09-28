@@ -215,7 +215,7 @@ export default {
             const currentRouteName = isActive();
             return patterns.some(pattern => {
                 // Check for exact match or if pattern includes wildcard for dynamic segments
-                console.log(currentRouteName === pattern);
+                // console.log(currentRouteName === pattern);
                 return currentRouteName === pattern;
             });
         };

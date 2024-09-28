@@ -17,7 +17,7 @@ class PermissionController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('Admin/Permission/Index', [
-            'permissions' => Permission::withoutTrashed()->paginate($request->input('per_page', 10))
+            'permissions' => Permission::withoutTrashed()->paginate($request->input('per_page', 6))
         ]);
     }
 
@@ -36,7 +36,7 @@ class PermissionController extends Controller
     {
         Permission::create($request->validated());
 
-        return redirect()->route('permissions.index');
+        return redirect()->route('permissions.index')->with('message', 'Task completed successfully!');;
     }
 
     /**
