@@ -48,7 +48,7 @@ Before you begin, ensure you have the following installed:
 
 4. **Build and start the Docker containers**:
     ```bash
-    docker-compose up -d
+    ./vendor/bin/sail up -d
     ```
     or
    
@@ -58,7 +58,7 @@ Before you begin, ensure you have the following installed:
 
 6. **Run migrations and seeders**:
     ```bash
-    docker-compose exec app php artisan migrate --seed
+    php artisan migrate --seed
     ```
     or
     ```bash
