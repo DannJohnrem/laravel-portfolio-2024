@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Skill;
+use App\Http\Controllers\Controller;
+use App\Models\About;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
-class SkillController extends Controller
+class AboutController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return 'skills';
+        return Inertia::render('About');
     }
 
     /**
@@ -34,7 +36,7 @@ class SkillController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Skill $skill)
+    public function show(About $about)
     {
         //
     }
@@ -42,7 +44,7 @@ class SkillController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Skill $skill)
+    public function edit(About $about)
     {
         //
     }
@@ -50,7 +52,7 @@ class SkillController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Skill $skill)
+    public function update(Request $request, About $about)
     {
         //
     }
@@ -58,7 +60,7 @@ class SkillController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Skill $skill)
+    public function destroy(About $about)
     {
         //
     }

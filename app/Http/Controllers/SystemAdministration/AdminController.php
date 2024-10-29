@@ -86,18 +86,18 @@ class AdminController extends Controller
      */
     public function update(UpdateRequest $request, User $user)
     {
-        $data = $request->validated();
+        $validatedData = $request->validated();
 
         // Only update the password if it's provided
-        if (!empty($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
+        if (!empty($validatedData['password'])) {
+            $validatedData['password'] = Hash::make($validatedData['password']);
         } else {
-            unset($data['password']);
+            unset($validatedData['password']);
         }
 
-        $user->update($data);
-        $user->syncRoles($request->input('roles.*.name'));
-        $user->syncPermissions($request->input('permissions.*.name'));
+        $user->update($validatedData);
+        $user->syncRoles($validatedData['roles']);
+        $user->syncPermissions($validatedData['permissions']);
 
         return to_route('admin.index');
     }

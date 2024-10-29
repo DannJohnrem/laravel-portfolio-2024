@@ -2,14 +2,14 @@
 
 /* Ensure high specificity */
 body #nprogress .bar {
-    background: #29d !important; /* Use !important to override default styles */
+    background: #9333EA !important; /* Use !important to override default styles */
   }
 
   body #nprogress .spinner-icon {
-    border-top-color: #29d !important;
-    border-left-color: #29d !important;
+    border-top-color: #9333EA !important;
+    border-left-color: #9333EA !important;
   }
 
   body #nprogress .peg {
-    box-shadow: 0 0 10px #29d, 0 0 5px #29d !important;
+    box-shadow: 0 0 10px #9333EA, 0 0 5px #9333EA !important;
   }

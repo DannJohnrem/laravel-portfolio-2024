@@ -1,14 +1,16 @@
 <?php
 
-use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\DashboardController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\SkillController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\SystemAdministration\AdminController;
 
 /*
@@ -35,12 +37,10 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // Dashboard Route
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // About Page
-    Route::get('/about', fn () => Inertia::render('About'))->name('about');
+    Route::resource('about', AboutController::class);
 
     // Users Index
     Route::get('/users', [UserController::class, 'index'])->name('users.index');

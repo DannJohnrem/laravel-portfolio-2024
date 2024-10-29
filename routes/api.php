@@ -25,5 +25,5 @@ Route::post('/register', [ApiRegisterController::class, 'store'])->name('api.reg
 Route::post('/login', [ApiAuthenticatedSessionController::class, 'store'])->name('api.login');
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/users', [UserController::class, 'index'])->name('api.users.index');
+    Route::get('/users', [UserController::class, 'getUsers'])->name('api.users.index');
 });

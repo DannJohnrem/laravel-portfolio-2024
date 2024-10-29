@@ -1,13 +1,13 @@
 <template>
     <aside class="z-20 flex-shrink-0 hidden w-64 overflow-y-auto bg-white md:block dark:bg-gray-800">
         <div class="py-4 text-gray-500">
-            <Link class="ml-6 text-lg font-bold text-gray-800 dark:text-slate-200" :href="route('dashboard')">
+            <Link class="ml-6 text-lg font-bold text-gray-800 dark:text-slate-200" :href="route('dashboard.index')">
             My Portfolio
             </Link>
 
             <ul class="mt-6">
                 <li class="relative px-6 py-3">
-                    <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                    <NavLink :href="route('dashboard.index')" :active="route().current('dashboard.index')">
                         <template #icon>
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -34,7 +34,7 @@
                 </li>
 
                 <li class="relative px-6 py-3">
-                    <NavLink :href="route('about')" :active="route().current('about')">
+                    <NavLink :href="route('about.index')" :active="route().current('about.index')">
                         <template #icon>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
@@ -72,38 +72,6 @@
                     </NavLink>
                 </li>
 
-                <!-- Dropdown with Child Menu
-                <li class="relative px-6 py-3">
-                    <button @click="toggleTwoLevelMenu"
-                        class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800">
-                        <span class="inline-flex items-center">
-                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                <path d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
-                            </svg>
-                            <span class="ml-4">Two-level menu</span>
-                        </span>
-                        <svg :class="{ 'transform rotate-180': showingTwoLevelMenu }"
-                            class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                    <transition name="fade">
-                        <ul v-show="showingTwoLevelMenu"
-                            class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50"
-                            aria-label="submenu">
-                            <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
-                                <a class="w-full" href="#">Child menu 1</a>
-                            </li>
-                            <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800">
-                                <a class="w-full" href="#">Child menu 2</a>
-                            </li>
-                            Add more child items as needed
-                        </ul>
-                    </transition>
-                </li> -->
                 <!-- TODO: Ill make this a v-for -->
                 <!-- Dropdown with Child Menu -->
                 <li class="relative px-6 py-3" v-if="hasRole('Admin')">
@@ -177,62 +145,42 @@
     </aside>
 </template>
 
-<script>
-import NavLink from '@/Components/NavLink.vue'
+<script setup>
+import NavLink from '@/Components/NavLink.vue';
 import { Link, usePage } from '@inertiajs/vue3';
-import { ref, watch, onMounted } from 'vue'
-import { useAuth } from '@/Composables/useAuth'
+import { ref, watch, onMounted } from 'vue';
+import { useAuth } from '@/Composables/useAuth';
 import { twoLevelMenu } from '@/TwoLevelMenu/menu';
 
-export default {
-    components: {
-        NavLink,
-        Link,
-    },
+const showingTwoLevelMenu = ref(false);
+const page = usePage();
+const { hasRole } = useAuth();
 
-    setup() {
+// Function to toggle the two-level menu visibility
+const toggleTwoLevelMenu = () => {
+    showingTwoLevelMenu.value = !showingTwoLevelMenu.value;
+};
 
-        let showingTwoLevelMenu = ref(false)
-        const page = usePage();
-        const { hasRole } = useAuth();
+// Function to check if the current route matches a given route name
+const isActive = (routeName) => {
+    return route().current(routeName);
+};
 
-        function toggleTwoLevelMenu() {
-            showingTwoLevelMenu.value = !showingTwoLevelMenu.value;
-        }
+// Function to check if any child route is active
+const isAnyChildRouteActive = () => {
+    return Object.values(twoLevelMenu).flat().some(routeName => isActive(routeName));
+};
 
-        // This function checks if the current route matches
-        const isActive = (routeName) => {
-            return route().current(routeName);
-        };
+// Function to check if the current route matches any of the given patterns
+const isRouteActive = (patterns) => {
+    const currentRouteName = route().current();
+    return patterns.some(pattern => currentRouteName === pattern);
+};
 
-        // This function check if any child is active
-        const isAnyChildRouteActive = () => {
-            return Object.values(twoLevelMenu).flat().some(routeName => isActive(routeName));
-        };
-
-        const isRouteActive = (patterns) => {
-            // Check if current route matches any of the patterns
-            const currentRouteName = isActive();
-            return patterns.some(pattern => {
-                // Check for exact match or if pattern includes wildcard for dynamic segments
-                // console.log(currentRouteName === pattern);
-                return currentRouteName === pattern;
-            });
-        };
-
-        onMounted(() => {
-            showingTwoLevelMenu.value = isAnyChildRouteActive();
-        });
-
-        return {
-            showingTwoLevelMenu,
-            toggleTwoLevelMenu,
-            hasRole,
-            isActive,
-            isRouteActive,
-        }
-    },
-}
+// Set the showingTwoLevelMenu value on component mount
+onMounted(() => {
+    showingTwoLevelMenu.value = isAnyChildRouteActive();
+});
 </script>
 
 <style>

@@ -103,6 +103,6 @@ class RoleController extends Controller
     {
         $role->delete();
 
-        return response()->json();
+        return response()->json(['message' => 'User deleted successfully.'], 200);
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <table class="w-full whitespace-no-wrap">
+    <table :id="id" class="w-full whitespace-no-wrap">
         <thead>
             <slot name="header"/>
         </thead>
