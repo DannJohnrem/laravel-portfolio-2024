@@ -20,10 +20,10 @@
                 </div>
                 <div>
                     <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                        Total clients
+                        Total users
                     </p>
                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                        6389
+                        {{ displayUsers }}
                     </p>
                 </div>
             </div>
@@ -132,4 +132,38 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import { ref, onMounted, watch } from 'vue';
+
+const props = defineProps({
+    totalUsers: Number,
+});
+
+console.log(props.totalUsers);
+const displayUsers = ref(0);
+
+watch(() => props.totalUsers, (newValue) => {
+    animateCount(newValue);
+});
+
+function animateCount(target) {
+    const duration = 2000;
+    const frameRate = 60;
+    const totalFrames = Math.round((duration / 1000) * frameRate);
+    const increment = target / totalFrames;
+    let currentFrame = 0;
+
+    const counter = setInterval(() => {
+        if (currentFrame < totalFrames) {
+            displayUsers.value = Math.min(Math.round(displayUsers.value + increment), target);
+            currentFrame++;
+        } else {
+            clearInterval(counter);
+            displayUsers.value = target; // Ensure it ends on the exact value
+        }
+    }, 1000 / frameRate);
+}
+
+onMounted(() => {
+    animateCount(props.totalUsers);
+});
 </script>
